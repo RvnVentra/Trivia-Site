@@ -3,7 +3,15 @@ import Select from 'react-select';
 import { Helmet } from 'react-helmet';
 
 import Questions from '../questions/Questions';
-import { Link } from "react-router-dom";
+import { 
+    GlobalStyle,
+    HomeNav,
+    TitleContainer,
+    Title,
+    SubmitButton,
+} from './trivia-landing.css';
+
+const LOADING_TEXT = "Trivia-Site".split('');
 
 export default class App extends Component {
     state = {
@@ -28,7 +36,7 @@ export default class App extends Component {
     render() {
         let displayQuestions = this.state.questions ? 
             <Questions questions={this.state.questions}/>
-            : <p>Loading...</p>;
+            : null;
 
         const categoryOptions = [
             { value: 27, label: 'Animals' },
@@ -58,25 +66,47 @@ export default class App extends Component {
         
         return (
             <div>
+                <GlobalStyle />
+
                 <Helmet>
                     <title>Trivia</title>
                     <meta name="Trivia Site" content="Trivia Landing" />
                 </Helmet>
 
-                <button>
-                    <Link to="/">
-                        Home
-                    </Link>
-                </button>
+                <HomeNav to="/">
+                    Home
+                </HomeNav>
 
-                <h1>Trivia site</h1>
-                <h2>Created using React, Trivia API, and Material UI</h2>
+                <TitleContainer>
+                    {
+                        LOADING_TEXT.map((text, index) => {
+                            return (
+                                <Title 
+                                    key={index}
+                                    index={index}
+                                    delay={175}
+                                >
+                                    {text}
+                                </Title>
+                            );
+                        })
+                    }
+                </TitleContainer>
+
+
                 <Select 
                     options={categoryOptions}
                     onChange={(e) => this.setCategoryHandler(e)}
                     styles={customSelectStyles}
                 />
-                <button onClick={this.setQuestionsHandler}> Generate Trivia</button>
+
+                <SubmitButton
+                    onClick={this.setQuestionsHandler}
+                    disabled={!this.state.categoryId}
+                > 
+                    Generate Trivia
+                </SubmitButton>
+
                 {displayQuestions}
             </div>
         );
@@ -87,6 +117,6 @@ const customSelectStyles = {
     container: (provided) => ({
         ...provided,
         width: '70%',
-        margin: '0 auto'
+        margin: '100px auto 125px auto'
     }),
 };

@@ -98,8 +98,8 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 export {
-    HomePage,
     GlobalStyle,
+    HomePage,
     HomeContentContainer,
     HomeContent,
     HomeNavigationContainer,
