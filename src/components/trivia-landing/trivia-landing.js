@@ -13,6 +13,7 @@ import {
 } from './trivia-landing.css';
 
 const LOADING_TEXT = "Trivia-Site".split('');
+const DELAY =  1750 / LOADING_TEXT.length;
 
 export default class App extends Component {
     state = {
@@ -22,16 +23,6 @@ export default class App extends Component {
     
     setCategoryHandler = (e) => {
         this.setState({ categoryId: e.value });
-    };
-
-    setQuestionsHandler = () => {
-        // fetch(`https://opentdb.com/api.php?amount=10&category=${this.state.categoryId}`)
-        //     .then(res => res.json())
-        //     .then(data => {
-        //         if(data.response_code === 0) {
-        //             this.setState({ questions: data.results });
-        //         };
-        //     });
     };
 
     render() {
@@ -66,7 +57,7 @@ export default class App extends Component {
         ];
         
         return (
-            <div>
+            <>
                 <GlobalStyle />
 
                 <Helmet>
@@ -85,7 +76,7 @@ export default class App extends Component {
                                 <Title 
                                     key={index}
                                     index={index}
-                                    delay={175}
+                                    delay={DELAY}
                                 >
                                     {text}
                                 </Title>
@@ -111,7 +102,7 @@ export default class App extends Component {
                 </SubmitButton>
 
                 {displayQuestions}
-            </div>
+            </>
         );
     };
 };
