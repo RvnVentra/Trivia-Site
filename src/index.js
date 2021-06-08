@@ -5,12 +5,14 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import App from './App';
 import Trivia from './components/trivia-landing/trivia-landing';
+import Questions from './components/questions/Questions';
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <Switch>
-        <Route path="/trivia" component={Trivia}/>
+        <Route path="/trivia/categoryId=:categoryId" component={Questions} />
+        <Route path="/trivia" component={Trivia} />
         <Route path="/" component={App} />
       </Switch>
     </BrowserRouter>

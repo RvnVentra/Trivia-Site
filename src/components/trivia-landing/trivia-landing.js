@@ -9,6 +9,7 @@ import {
     TitleContainer,
     Title,
     SubmitButton,
+    SubmitLink,
 } from './trivia-landing.css';
 
 const LOADING_TEXT = "Trivia-Site".split('');
@@ -24,13 +25,13 @@ export default class App extends Component {
     };
 
     setQuestionsHandler = () => {
-        fetch(`https://opentdb.com/api.php?amount=10&category=${this.state.categoryId}`)
-            .then(res => res.json())
-            .then(data => {
-                if(data.response_code === 0) {
-                    this.setState({ questions: data.results });
-                };
-            });
+        // fetch(`https://opentdb.com/api.php?amount=10&category=${this.state.categoryId}`)
+        //     .then(res => res.json())
+        //     .then(data => {
+        //         if(data.response_code === 0) {
+        //             this.setState({ questions: data.results });
+        //         };
+        //     });
     };
 
     render() {
@@ -73,7 +74,7 @@ export default class App extends Component {
                     <meta name="Trivia Site" content="Trivia Landing" />
                 </Helmet>
 
-                <HomeNav to="/">
+                <HomeNav to={'/'}>
                     Home
                 </HomeNav>
 
@@ -104,7 +105,9 @@ export default class App extends Component {
                     onClick={this.setQuestionsHandler}
                     disabled={!this.state.categoryId}
                 > 
-                    Generate Trivia
+                    <SubmitLink to={'/trivia/categoryId=' + this.state.categoryId}>
+                        Generate Trivia
+                    </SubmitLink>
                 </SubmitButton>
 
                 {displayQuestions}

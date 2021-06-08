@@ -1,6 +1,11 @@
 import { Link } from 'react-router-dom';
 import styled, { createGlobalStyle, keyframes } from 'styled-components';
 
+const SubmitLink = styled(Link)`
+    text-decoration: none;
+    color: inherit;
+`;
+
 const SubmitButton = styled.button`
     display: block;
     background-color: #1B1F21;
@@ -62,6 +67,7 @@ const HomeNav = styled(Link)`
     background-color: white;
     border-radius: 5px;
     display: block;
+    opacity: 0.9;
 
     text-decoration: none;
     padding: 5px 0px;
@@ -109,4 +115,5 @@ export {
     TitleContainer,
     Title,
     SubmitButton,
+    SubmitLink,
 };
