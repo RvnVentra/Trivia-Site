@@ -1,6 +1,12 @@
 import He from 'he';
 import { Component } from 'react';
 
+import {
+    QuestionContainer,
+    QuestionHeader,
+    QuestionAnswersContainer,
+    QuestionAnswers,
+} from './Question.css';
 export default class Question extends Component {
     state = {
         category: null,
@@ -41,19 +47,19 @@ export default class Question extends Component {
 
     render() {
         let displayAnswers = this.state.answers ? this.state.answers.map((answer, index) => {
-            return <li key={index}>{He.decode(answer.toString())}</li>
+            return <QuestionAnswers key={index}>{He.decode(answer.toString())}</QuestionAnswers>
         }) : null;
 
         let displayQuestion = this.state.question ? 
-            <div>
-                <p>{He.decode(this.state.question)}</p>
-                <p>{displayAnswers}</p>
-            </div> : <div>Loading...</div>
+            <QuestionContainer>
+                <QuestionHeader>{He.decode(this.state.question)}</QuestionHeader>
+                <QuestionAnswersContainer>{displayAnswers}</QuestionAnswersContainer>
+            </QuestionContainer> : <div>Loading...</div>
 
         return (
-            <div>
+            <>
                 {displayQuestion}
-            </div>
+            </>
         );
     };
 };

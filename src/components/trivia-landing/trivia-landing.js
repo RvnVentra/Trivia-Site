@@ -10,7 +10,7 @@ import {
     Title,
     SubmitButton,
     SubmitLink,
-} from './trivia-landing.css';
+} from './Trivia-landing.css';
 
 const LOADING_TEXT = "Trivia-Site".split('');
 const DELAY =  1750 / LOADING_TEXT.length;
