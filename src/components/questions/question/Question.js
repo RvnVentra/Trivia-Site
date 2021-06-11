@@ -2,10 +2,13 @@ import He from 'he';
 import { Component } from 'react';
 
 import {
+    RealQuestionContainer,
     QuestionContainer,
     QuestionHeader,
     QuestionAnswersContainer,
     QuestionAnswers,
+    ArrowButton,
+    Arrow,
 } from './Question.css';
 export default class Question extends Component {
     state = {
@@ -45,9 +48,25 @@ export default class Question extends Component {
         });
     };
 
+    isAnswerCorrectHandler = (e) => {
+        const answer = e.target.value;
+        console.log(answer === this.state.correct_answer);
+        if (answer === this.state.correct_answer) {
+            this.props.setScore(this.props.score + 1)
+        };
+    };
+
     render() {
         let displayAnswers = this.state.answers ? this.state.answers.map((answer, index) => {
-            return <QuestionAnswers key={index}>{He.decode(answer.toString())}</QuestionAnswers>
+            return (
+                <QuestionAnswers
+                    key={index}
+                    onClick={this.isAnswerCorrectHandler}
+                    value={answer.toString()}
+                >
+                    {He.decode(answer.toString())}
+                </QuestionAnswers>
+            );
         }) : null;
 
         let displayQuestion = this.state.question ? 
@@ -57,9 +76,24 @@ export default class Question extends Component {
             </QuestionContainer> : <div>Loading...</div>
 
         return (
-            <>
+            <RealQuestionContainer>
+                {console.log(this.props.score)}
+                <ArrowButton
+                    direction={"left"}
+                    disabled={!this.props.currentQuestion > 0}
+                    onClick={() => this.props.setCurrentQuestion(this.props.currentQuestion - 1)}
+                >
+                    <Arrow direction={"left"} />
+                </ArrowButton>
+                <ArrowButton
+                    direction={"right"}
+                    disabled={this.props.currentQuestion >= 9}
+                    onClick={() => this.props.setCurrentQuestion(this.props.currentQuestion + 1)}
+                >
+                    <Arrow direction={"right"} />
+                </ArrowButton>
                 {displayQuestion}
-            </>
+            </RealQuestionContainer>
         );
     };
 };

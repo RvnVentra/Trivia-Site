@@ -10,6 +10,7 @@ const DELAY = 750 / LOADING_TEXT.length ;
 export default function Questions() {
     const [questions, setQuestions] = useState(null);
     const [currentQuestion, setCurrentQuestion] = useState(0);
+    const [score, setScore] = useState(0);
     const { categoryId } = useParams();
     
     useEffect(() => {
@@ -36,7 +37,10 @@ export default function Questions() {
                         index === currentQuestion ? <Question 
                             key={question.question}
                             question={question}
-                            changeCurrentQuestion={setCurrentQuestion}
+                            currentQuestion={currentQuestion}
+                            setCurrentQuestion={setCurrentQuestion}
+                            score={score}
+                            setScore={setScore}
                         /> : null
                     );
                 }) : <LoadingContainer>
