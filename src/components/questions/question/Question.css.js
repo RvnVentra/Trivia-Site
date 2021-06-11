@@ -10,7 +10,7 @@ const QuestionAnswers = styled.button`
   width: 150px;
   height: 35px;
 
-  transition: 600ms;
+  transition: 300ms;
 
   &:hover, :focus {
     background-color: white;

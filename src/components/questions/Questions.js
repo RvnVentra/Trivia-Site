@@ -9,6 +9,7 @@ const DELAY = 750 / LOADING_TEXT.length ;
 
 export default function Questions() {
     const [questions, setQuestions] = useState(null);
+    const [currentQuestion, setCurrentQuestion] = useState(0);
     const { categoryId } = useParams();
     
     useEffect(() => {
@@ -24,15 +25,19 @@ export default function Questions() {
         };
 
         fetchQuestions();
-    }, []);
+    }, [categoryId]);
 
     return (
         <>
             <GlobalStyle />
             {
-                questions ? questions.map((question) => {
+                questions ? questions.map((question, index) => {
                     return (
-                        <Question key={question.question} question={question}/>
+                        index === currentQuestion ? <Question 
+                            key={question.question}
+                            question={question}
+                            changeCurrentQuestion={setCurrentQuestion}
+                        /> : null
                     );
                 }) : <LoadingContainer>
                         {
