@@ -15,16 +15,14 @@ export default function Questions() {
     const { categoryId } = useParams();
     
     useEffect(() => {
-        const fetchQuestions = async() => {
-            const res = await fetch(`https://opentdb.com/api.php?amount=10&category=${categoryId}`);
-            const data = await res.json();
+        fetch(`https://opentdb.com/api.php?amount=10&category=${categoryId}`)
+            .then(res => res.json())
+            .then(data => { return data.results; })
+            .then(results => {
+                const _questions = [...results];
 
-            if(data.response_code === 0) {
-                setQuestions(data.results);
-                const _questions = [...questions];
-
-                for(let i = 0; i < questions.length; i++) {
-                    const { type, correct_answer, incorrect_answers } = questions[i];
+                for(let i = 0; i < _questions.length; i++) {
+                    const { type, correct_answer, incorrect_answers } = results[i];
 
                     //Create randomized answers
                     let _answers = [], ranAnswers;
@@ -41,15 +39,10 @@ export default function Questions() {
                         ranAnswers = [ ["True"], ["False"] ];
                     };
                     _questions[i]['ranAnswers'] = ranAnswers;
-                }
+                };
                 setQuestions(_questions);
-            } else {
-                console.log('category not found');
-            };
-        };
-
-        fetchQuestions();
-    }, [categoryId]);
+            });
+    }, []);
 
     return (
         <>
