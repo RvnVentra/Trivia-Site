@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import styled, { createGlobalStyle, keyframes } from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 const SubmitLink = styled(Link)`
     text-decoration: none;

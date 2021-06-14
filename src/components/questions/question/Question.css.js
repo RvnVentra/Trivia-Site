@@ -72,6 +72,8 @@ const QuestionAnswers = styled.button`
   margin: 15px 0px;
   cursor: pointer;
 
+  ${props => props.disabled ? 'color: red' : null};
+
   transition: 300ms;
 
   &:hover, :focus {

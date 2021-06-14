@@ -19,6 +19,7 @@ const GlobalStyle = createGlobalStyle`
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     background-color: #1B1F21;
+    color: white;
   };
 
   code {

@@ -1,4 +1,4 @@
-import styled, { createGlobalStyle } from 'styled-components';
+import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 const HomeNavigationLink = styled.a`

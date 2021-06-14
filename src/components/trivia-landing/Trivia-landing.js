@@ -108,6 +108,7 @@ const customSelectStyles = {
     container: (provided) => ({
         ...provided,
         width: '70%',
-        margin: '100px auto 125px auto'
+        margin: '100px auto 125px auto',
+        color: 'black',
     }),
 };
