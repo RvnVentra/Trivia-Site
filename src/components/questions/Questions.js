@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router';
 import Question from './question/Question';
 
-import { GlobalStyle, LoadingContainer, Loading } from './Questions.css';
+import { LoadingContainer, Loading } from './Questions.css';
 
 const LOADING_TEXT = "Loading...".split('');
 const DELAY = 750 / LOADING_TEXT.length ;
@@ -30,7 +30,6 @@ export default function Questions() {
 
     return (
         <>
-            <GlobalStyle />
             {
                 questions ? questions.map((question, index) => {
                     return (

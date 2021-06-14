@@ -2,18 +2,40 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { createGlobalStyle } from 'styled-components';
 
 import App from './App';
 import Trivia from './components/trivia-landing/Trivia-landing';
 import Questions from './components/questions/Questions';
+import NotFound from './components/notFound/NotFound';
+
+const GlobalStyle = createGlobalStyle`
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+      sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: #1B1F21;
+  };
+
+  code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+      monospace;
+  };
+`;
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
+      <GlobalStyle />
       <Switch>
-        <Route path="/trivia/categoryId=:categoryId" component={Questions} />
+        <Route exact path="/trivia/categoryId=:categoryId" component={Questions} />
         <Route path="/trivia" component={Trivia} />
-        <Route path="/" component={App} />
+        <Route exact path="/" component={App} />
+        <Route component={NotFound} />
       </Switch>
     </BrowserRouter>
   </React.StrictMode>,

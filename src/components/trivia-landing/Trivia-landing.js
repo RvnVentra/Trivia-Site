@@ -4,7 +4,6 @@ import { Helmet } from 'react-helmet';
 
 import Questions from '../questions/Questions';
 import { 
-    GlobalStyle,
     HomeNav,
     TitleContainer,
     Title,
@@ -58,8 +57,6 @@ export default class App extends Component {
         
         return (
             <>
-                <GlobalStyle />
-
                 <Helmet>
                     <title>Trivia</title>
                     <meta name="Trivia Site" content="Trivia Landing" />

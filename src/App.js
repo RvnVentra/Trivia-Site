@@ -3,7 +3,6 @@ import { Helmet } from "react-helmet";
 
 import { 
     HomePage,
-    GlobalStyle,
     HomeContentContainer,
     HomeContent,
     HomeNavigationContainer,
@@ -18,8 +17,6 @@ export default class App extends Component {
             <Helmet>
                 <title>Landing</title>
             </Helmet>
-
-            <GlobalStyle />
 
             <HomePage>
                 <HomeContentContainer>
