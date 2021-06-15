@@ -1,7 +1,45 @@
+import { Link } from 'react-router-dom';
 import styled, { keyframes } from 'styled-components';
 
 const ARROW_SIZE = '6';
 const ARROW_CENTERING = ARROW_SIZE / 2 + 2;
+
+const SubmitAnimation = keyframes`
+  from {
+    right: 0;
+  };
+  
+  to {
+    right: 45px;
+  };
+`;
+
+const Submit = styled(Link)`
+  background-color: inherit;
+  border: 1px solid white;
+  border-radius: 5px;
+  display: ${ props => props.disabled ? 'flex' : 'none' };
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  bottom: 15vh;
+  right: 45px;
+
+  color: white;
+  width: 150px;
+  height: 35px;
+  margin: 15px 0px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: 400ms;
+  animation: ${SubmitAnimation} 600ms;
+
+  &:hover, :focus {
+    background-color: white;
+
+    color: black;   
+  };
+`;
 
 const LeftArrowAnimation = keyframes`
   from {
@@ -72,8 +110,6 @@ const QuestionAnswers = styled.button`
   margin: 15px 0px;
   cursor: pointer;
 
-  ${props => props.disabled ? 'color: red' : null};
-
   transition: 300ms;
 
   &:hover, :focus {
@@ -137,4 +173,5 @@ export {
   QuestionAnswers,
   ArrowButton,
   Arrow,
+  Submit,
 };

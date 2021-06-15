@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router';
 import Question from './question/Question';
+import Results from './results/Results';
 
 import { LoadingContainer, Loading } from './Questions.css';
 
@@ -8,9 +9,9 @@ const LOADING_TEXT = "Loading...".split('');
 const DELAY = 750 / LOADING_TEXT.length ;
 
 export default function Questions() {
+    const [results, setResults] = useState(null);
     const [questions, setQuestions] = useState(null);
     const [questionIndex, setQuestionIndex] = useState(0);
-    const [score, setScore] = useState(0);
     const [selected, setSelected] = useState([]);
     const { categoryId } = useParams();
     
@@ -42,22 +43,23 @@ export default function Questions() {
                 };
                 setQuestions(_questions);
             });
-    }, []);
+    }, [categoryId]);
 
     return (
         <>
             {
+                results ? <Results /> : 
                 questions ? questions.map((question, index) => {
                     return (
                         index === questionIndex ? <Question 
                             key={question.question}
+                            questions={questions}
                             question={question}
                             questionIndex={questionIndex}
                             setQuestionIndex={setQuestionIndex}
-                            score={score}
-                            setScore={setScore}
                             selected={selected}
                             setSelected={setSelected}
+                            setResults={setResults}
                         /> : null
                     );
                 }) : <LoadingContainer>

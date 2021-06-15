@@ -9,6 +9,7 @@ import {
     QuestionAnswers,
     ArrowButton,
     Arrow,
+    Submit,
 } from './Question.css';
 
 export default class Question extends Component {
@@ -34,29 +35,24 @@ export default class Question extends Component {
         });
     };
 
-    isAnswerCorrectHandler = (e) => {
-        const { setScore, selected, setSelected, questionIndex } = this.props;
+    selectAnswerHandler = (e) => {
+        const { selected, setSelected, questionIndex } = this.props;
         const answer = e.target.value;
         const sArray = [...selected];
 
         selected.length === 0 ? sArray.push(answer) : sArray.splice(questionIndex, 1, answer);
 
-        if (answer === this.state.correct_answer) {
-            setScore(this.props.score + 1)
-        };
-
         setSelected(sArray);
+        console.log(this.props.selected);
     };
 
     render() {
         let displayAnswers = this.props.question.ranAnswers ? this.props.question.ranAnswers.map((answer, index) => {
-            console.log(this.props.selected[0] === answer.toString())
             return (
                 <QuestionAnswers
                     key={index}
-                    onClick={this.isAnswerCorrectHandler}
+                    onClick={this.selectAnswerHandler}
                     value={answer.toString()}
-                    disabled={this.props.selected[index] === answer.toString()}
                 >
                     {He.decode(answer.toString())}
                 </QuestionAnswers>
@@ -71,8 +67,6 @@ export default class Question extends Component {
 
         return (
             <RealQuestionContainer>
-                {this.props.score}
-                {this.props.selected}
                 <ArrowButton
                     direction={"left"}
                     disabled={!this.props.questionIndex > 0}
@@ -88,6 +82,17 @@ export default class Question extends Component {
                     <Arrow direction={"right"} />
                 </ArrowButton>
                 {displayQuestion}
+                <Submit
+                    to={{
+                        pathname:'/trivia/results',
+                        state: {
+                            questions: this.props.questions,
+                            selected: this.props.selected,
+                        }
+                    }}
+                    disabled={this.props.selected.length === 10}
+                    onClick={() => this.props.setResults(true)}
+                >Submit Answers</Submit>
             </RealQuestionContainer>
         );
     };

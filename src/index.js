@@ -8,6 +8,7 @@ import App from './App';
 import Trivia from './components/trivia-landing/Trivia-landing';
 import Questions from './components/questions/Questions';
 import NotFound from './components/notFound/NotFound';
+import Results from './components/questions/results/Results';
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -33,6 +34,7 @@ ReactDOM.render(
     <BrowserRouter>
       <GlobalStyle />
       <Switch>
+        <Route exact path = "/trivia/results" component={Results} />
         <Route exact path="/trivia/categoryId=:categoryId" component={Questions} />
         <Route path="/trivia" component={Trivia} />
         <Route exact path="/" component={App} />
