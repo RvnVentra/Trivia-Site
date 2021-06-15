@@ -43,7 +43,6 @@ export default class Question extends Component {
         selected.length === 0 ? sArray.push(answer) : sArray.splice(questionIndex, 1, answer);
 
         setSelected(sArray);
-        console.log(this.props.selected);
     };
 
     render() {

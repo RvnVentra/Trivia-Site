@@ -1,26 +1,42 @@
 import { useEffect, useState } from "react";
+import He from 'he';
 
-import { ResultsContainer, ResultText, ViewAnswers, } from './Results.css';
+import { 
+    ResultsContainer,
+    ResultText,
+    ViewAnswers,
+    AnswersContainer,
+    QuestionsText,
+    SelectedAnswersText,
+    CorrectAnswersText,
+    ReturnHome,
+} from './Results.css';
 
 export default function Results(props) {
     const [score, setScore] = useState(0);
     const [showAnswers, setShowAnswers] = useState(false);
-    const [answersList, setAnswersList] = useState([]);
+    const [questionsList, setQuestionsList] = useState([]);
+    const [selectedAnswersList, setselectedAnswersList] = useState([]);
+    const [correctAnswersList, setCorrectAnswersList] = useState([]);
     const { questions, selected } = props.location.state;
 
     function LoopAnswers() {
-        let s = 0, _answersList = [...answersList];
+        let s = 0, _questionsList = [], _selectedAnswersList = [], _correctAnswersList = [];
 
         for(let i = 0; i < selected.length; i++) {
             if(questions[i]['correct_answer'] === selected[i]) {
                 s++;
             } else {
-                _answersList.push("Your answer: " + questions[i]['correct_answer'] + ". Correct answer: " + selected[i]);
+                _questionsList.push(questions[i]['question']);
+                _selectedAnswersList.push("Your answer: " + questions[i]['correct_answer'] + ".");
+                _correctAnswersList.push("Correct answer: " + selected[i] + ".");
             }
         };
 
         setScore(s);
-        setAnswersList(_answersList);
+        setQuestionsList(_questionsList);
+        setselectedAnswersList(_selectedAnswersList);
+        setCorrectAnswersList(_correctAnswersList);
     };
 
     useEffect(() => {
@@ -32,14 +48,22 @@ export default function Results(props) {
     };
 
     let toggleShowAnswers = showAnswers ? (
-        <div>
-            {
-                answersList.map((answers, index) => {
-                    return <li key={index}>{answers}</li>
-                })
-            }
+        <ResultsContainer>
+            <AnswersContainer>
+                {
+                    selectedAnswersList.map((selectedAnswers, index) => {
+                        return (
+                            <>
+                                <QuestionsText key={index + 50}>{He.decode(questionsList[index].toString())}</QuestionsText>
+                                <SelectedAnswersText key={index}>{He.decode(selectedAnswers.toString())}</SelectedAnswersText>
+                                <CorrectAnswersText key={index+100}>{He.decode(correctAnswersList[index].toString())}</CorrectAnswersText>
+                            </>
+                        )
+                    })
+                }
+            </AnswersContainer>
             <ViewAnswers onClick={showAnswersHandler}>Click to hide wrong answers</ViewAnswers>
-        </div>
+        </ResultsContainer>
     ) : (
     <ResultsContainer>
         <ResultText>You have scored: {score} out of 10!</ResultText>
@@ -49,6 +73,7 @@ export default function Results(props) {
 
     return ( 
         <div>
+            <ReturnHome to={"/trivia"}>Home</ReturnHome>
             { toggleShowAnswers }
         </div>
     );
